@@ -1,13 +1,16 @@
 const { execSync } = require('child_process');
 const fs = require('fs');
 
+const userName = "faceplant";
+const userEmail = "illegalgmaner@yandex.ru";
+
 function createCommitForDate(date, numberOfCommits, repositoryPath) {
     process.chdir(repositoryPath); // Переходим в директорию репозитория
     for (let i = 0; i < numberOfCommits; i++) {
         const fileName = `dummy-file-${date}-${i}.txt`;
         fs.writeFileSync(fileName, `Dummy content for ${fileName}`); // Создаем новый файл
         execSync(`git add ${fileName}`); // Добавляем файл в индекс git
-        execSync(`git commit --date="${date}" -m "Add ${fileName}"`); // Создаем коммит с указанной датой
+        execSync(`git -c user.name="${userName}" -c user.email="${userEmail}" commit --date="${date}" -m "Add ${fileName}"`);
     }
 }
 
